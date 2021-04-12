@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class SpeedBonus : Bonus
 {
-    private BeingMover _mover;
+    private Mover _mover;
 
-    public SpeedBonus(BeingMover mover, float forceBonus)
+    protected override void EnableBonus()
     {
-        _mover = mover;
-        ForceBonus = forceBonus;
+        if(_mover == null)
+            _mover = GetComponentInParent<Mover>();
+
+        _mover.ChangeSpeed(Force);
     }
 
-    public override void EnableBonus()
+    protected override void DisableBonus()
     {
-        _mover.SpeedUp(ForceBonus);
-    }
-
-    public override void DisableBonus()
-    {
-        _mover.ReturnStandardSpeed();
-    }
+        float reverseForce = 1 / Force;
+        _mover.ChangeSpeed(reverseForce);
+        this.enabled = false;
+    }    
 }

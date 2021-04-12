@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMover : BeingMover
+public class EnemyMover : Mover
 {
     public override void Move(Vector2 targetPosition)
     {
-        Transform.position = Vector3.MoveTowards(Transform.position, targetPosition, CurrentSpeed * Time.fixedDeltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, CurrentSpeed * Time.fixedDeltaTime);
     }
 
 }

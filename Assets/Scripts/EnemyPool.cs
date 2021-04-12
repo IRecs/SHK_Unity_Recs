@@ -7,15 +7,17 @@ public class EnemyPool : MonoBehaviour
 {
     public event UnityAction AllEnemyDie;
 
-    [SerializeField] private Enemy[] _enemys;
-
+    private Enemy[] _enemys;
     private int _defeatedEnemies;
 
     private void OnEnable()
     {
+        _defeatedEnemies = 0;
+        _enemys = FindObjectsOfType<Enemy>();
+
         for (int i = 0; i < _enemys.Length; i++)
         {
-            _enemys[i].EnemyDie += RecountDefeatedEnemies;
+            _enemys[i].EnemyDie += OnRecountDefeatedEnemies;
         }
     }
 
@@ -23,11 +25,11 @@ public class EnemyPool : MonoBehaviour
     {
         for (int i = 0; i < _enemys.Length; i++)
         {
-            _enemys[i].EnemyDie -= RecountDefeatedEnemies;
+            _enemys[i].EnemyDie -= OnRecountDefeatedEnemies;
         }
     }
 
-    private void RecountDefeatedEnemies()
+    private void OnRecountDefeatedEnemies()
     {
         ++_defeatedEnemies;
         if (_defeatedEnemies == _enemys.Length)

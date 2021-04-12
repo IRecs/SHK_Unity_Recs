@@ -5,23 +5,21 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(EnemyMover))]
 
-public class Enemy : Being
+public class Enemy : Unit
 {
     public event UnityAction EnemyDie;
 
     private EnemyMover _mover;
     private Vector3 _targetPosition;
-    private Transform _transform;
 
     private void Start()
     {
-        _mover = GetComponent<EnemyMover>();
-        _transform = GetComponent<Transform>();        
+        _mover = GetComponent<EnemyMover>();  
     }
 
     private void FixedUpdate()
     {
-        if (_transform.position != _targetPosition)
+        if (transform.position != _targetPosition)
             _mover.Move(_targetPosition);            
         else
             SearchTargetPosition();

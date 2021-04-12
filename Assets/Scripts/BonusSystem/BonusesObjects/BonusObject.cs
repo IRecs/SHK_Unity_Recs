@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BonusObject : MonoBehaviour
+public abstract class BonusObject : MonoBehaviour
 {
-    [SerializeField] protected float DurationBonus;
-    [SerializeField] protected float ForceBonus;
+    [SerializeField] protected float Duration { get; }
+    [SerializeField] protected float Force { get; }
 
-    public void GetBonusMetrics(out float durationBonus, out float forceBonus)
+    protected abstract void ArrangeBonus(Unit unit);
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        durationBonus = DurationBonus;
-        forceBonus = ForceBonus;
+        if (collision.TryGetComponent(out Unit unit))
+        {
+            ArrangeBonus(unit);
+            gameObject.SetActive(false);
+        }
     }
 }
