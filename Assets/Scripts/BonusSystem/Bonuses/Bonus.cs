@@ -7,7 +7,6 @@ public abstract class Bonus : MonoBehaviour
     protected float Force { get; private set; }
     protected float Duration { get; private set; }
 
-
     private void Update()
     {
         Duration -= Time.deltaTime;

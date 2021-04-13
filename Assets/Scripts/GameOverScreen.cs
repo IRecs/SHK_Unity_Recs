@@ -9,15 +9,15 @@ public class GameOverScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        _enemyPool.AllEnemyDie += OnOverGame;
+        _enemyPool.AllEnemyDie += OnAllEnemyDie;
     }
 
     private void OnDisable()
     {
-        _enemyPool.AllEnemyDie -= OnOverGame;
+        _enemyPool.AllEnemyDie -= OnAllEnemyDie;
     }
 
-    private void OnOverGame()
+    private void OnAllEnemyDie()
     {
         _gameOverPanel.SetActive(true);
     }

@@ -4,8 +4,11 @@ using UnityEngine;
 
 public abstract class BonusObject : MonoBehaviour
 {
-    [SerializeField] protected float Duration { get; }
-    [SerializeField] protected float Force { get; }
+    protected float Duration => _duration;
+    protected float Force => _force;
+
+    [SerializeField] private float _force;
+    [SerializeField] private float _duration;
 
     protected abstract void ArrangeBonus(Unit unit);
 

@@ -44,5 +44,4 @@ public class Enemy : Unit
     {
         gameObject.SetActive(false);
     }
-
 }

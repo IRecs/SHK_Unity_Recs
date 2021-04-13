@@ -8,5 +8,4 @@ public class EnemyMover : Mover
     {
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, CurrentSpeed * Time.fixedDeltaTime);
     }
-
 }
