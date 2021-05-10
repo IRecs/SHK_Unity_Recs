@@ -3,32 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(EnemyMover))]
-
-public class Enemy : Unit
+public class Enemy : MonoBehaviour
 {
-    public event UnityAction EnemyDie;
-
-    private EnemyMover _mover;
+    [SerializeField] private float _speed;
+    private float _radiusMovement = 4;
     private Vector3 _targetPosition;
 
-    private void Start()
-    {
-        _mover = GetComponent<EnemyMover>();  
-    }
+    public event UnityAction EnemyDie;
 
     private void FixedUpdate()
     {
         if (transform.position != _targetPosition)
-            _mover.Move(_targetPosition);            
+            Move();            
         else
             SearchTargetPosition();
     }
 
-    private Vector2 SearchTargetPosition()
+    private void SearchTargetPosition()
     {
-        _targetPosition = Random.insideUnitCircle * 4;
-        return _targetPosition;
+        _targetPosition = Random.insideUnitCircle * _radiusMovement;
+    }
+
+    private void Move()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _speed * Time.fixedDeltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

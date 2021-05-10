@@ -7,32 +7,32 @@ public class EnemyPool : MonoBehaviour
 {
     public event UnityAction AllEnemyDie;
 
-    private Enemy[] _enemys;
+    private Enemy[] _enemies;
     private int _defeatedEnemies;
 
     private void OnEnable()
     {
         _defeatedEnemies = 0;
-        _enemys = FindObjectsOfType<Enemy>();
+        _enemies = FindObjectsOfType<Enemy>();
 
-        for (int i = 0; i < _enemys.Length; i++)
+        for (int i = 0; i < _enemies.Length; i++)
         {
-            _enemys[i].EnemyDie += OnRecountDefeatedEnemies;
+            _enemies[i].EnemyDie += OnRecountDefeatedEnemies;
         }
     }
 
     private void OnDisable()
     {
-        for (int i = 0; i < _enemys.Length; i++)
+        for (int i = 0; i < _enemies.Length; i++)
         {
-            _enemys[i].EnemyDie -= OnRecountDefeatedEnemies;
+            _enemies[i].EnemyDie -= OnRecountDefeatedEnemies;
         }
     }
 
     private void OnRecountDefeatedEnemies()
     {
-        ++_defeatedEnemies;
-        if (_defeatedEnemies == _enemys.Length)
+        _defeatedEnemies++;
+        if (_defeatedEnemies == _enemies.Length)
             AllEnemyDie?.Invoke();
     }
 }
