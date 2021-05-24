@@ -7,11 +7,11 @@ public class SpeedBonusObject : MonoBehaviour
     [SerializeField] private float _force;
     [SerializeField] private float _duration;
 
-    private void ArrangeBonus(Player player)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (player.TryGetComponent(out PlayerMover mover))
+        if (collision.TryGetComponent(out PlayerMover mover))
         {
-            GameObject container = player.BonusContainer;
+            GameObject container = mover.GetComponent<Player>().BonusContainer;
 
             if (!container.TryGetComponent(out SpeedBonus speedBonus))
             {
@@ -22,20 +22,7 @@ public class SpeedBonusObject : MonoBehaviour
                 speedBonus.enabled = true;
             }
 
-            speedBonus.SetDuration(_duration);
-
-            if (speedBonus.TrySetForce(_force))
-            {
-                speedBonus.EnableBonusEffect();
-            }
-        }
-    }
-       
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent(out Player player))
-        {
-            ArrangeBonus(player);
+            speedBonus.Enable(_force, _duration);
             gameObject.SetActive(false);
         }
     }

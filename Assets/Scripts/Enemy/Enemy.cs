@@ -9,23 +9,18 @@ public class Enemy : MonoBehaviour
     private float _radiusMovement = 4;
     private Vector3 _targetPosition;
 
-    public event UnityAction EnemyDie;
-
     private void FixedUpdate()
     {
-        if (transform.position != _targetPosition)
-            Move();            
-        else
-            SearchTargetPosition();
-    }
-
-    private void SearchTargetPosition()
-    {
-        _targetPosition = Random.insideUnitCircle * _radiusMovement;
+        Move();
     }
 
     private void Move()
     {
+        if (transform.position == _targetPosition)
+        {
+            _targetPosition = Random.insideUnitCircle * _radiusMovement;
+        }
+
         transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _speed * Time.fixedDeltaTime);
     }
 
@@ -33,13 +28,8 @@ public class Enemy : MonoBehaviour
     {
         if (collision.TryGetComponent(out Player player))
         {
-            EnemyDie?.Invoke();
+            player.AddScorePoint();
+            gameObject.SetActive(false);
         }
-        Die();
-    }
-
-    private void Die()
-    {
-        gameObject.SetActive(false);
     }
 }

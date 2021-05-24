@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameOverScreen : MonoBehaviour
+public class Screen : MonoBehaviour
 {
-    [SerializeField] private EnemyPool _enemyPool;
+    private Player _player;
     [SerializeField] private GameObject _gameOverPanel;
 
     private void OnEnable()
     {
-        _enemyPool.AllEnemyDie += OnAllEnemyDie;
+        _player = FindObjectsOfType<Player>()[0];
+        _player.LevelPassed += OnLevelPassed;
     }
 
     private void OnDisable()
     {
-        _enemyPool.AllEnemyDie -= OnAllEnemyDie;
+        _player.LevelPassed -= OnLevelPassed;
     }
 
-    private void OnAllEnemyDie()
+    private void OnLevelPassed()
     {
         _gameOverPanel.SetActive(true);
     }
