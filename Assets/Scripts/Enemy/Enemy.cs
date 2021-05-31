@@ -9,12 +9,17 @@ public class Enemy : MonoBehaviour
     private float _radiusMovement = 4;
     private Vector3 _targetPosition;
 
-    private void FixedUpdate()
+    private void Start()
     {
-        Move();
+        _targetPosition = Random.insideUnitCircle * _radiusMovement;
     }
 
-    private void Move()
+    private void FixedUpdate()
+    {
+        MoveLogic();
+    }
+
+    private void MoveLogic()
     {
         if (transform.position == _targetPosition)
         {

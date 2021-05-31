@@ -4,11 +4,9 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private GameObject _bonusContainer;
     private int _targetScore;
     private int _currentScore;
 
-    public GameObject BonusContainer => _bonusContainer;
     public event UnityAction LevelPassed;
 
     private void Start()

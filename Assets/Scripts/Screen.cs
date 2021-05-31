@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Screen : MonoBehaviour
 {
-    private Player _player;
+    [SerializeField] private Player _player;
     [SerializeField] private GameObject _gameOverPanel;
 
     private void OnEnable()
     {
-        _player = FindObjectsOfType<Player>()[0];
         _player.LevelPassed += OnLevelPassed;
     }
 
