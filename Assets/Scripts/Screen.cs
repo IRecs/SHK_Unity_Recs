@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Screen : MonoBehaviour
 {
-    [SerializeField] private Player _player;
+    [SerializeField] private EnemyGroup _enemyGroup;
     [SerializeField] private GameObject _gameOverPanel;
 
     private void OnEnable()
     {
-        _player.LevelPassed += OnLevelPassed;
+        _enemyGroup.LevelPassed += OnLevelPassed;
     }
 
     private void OnDisable()
     {
-        _player.LevelPassed -= OnLevelPassed;
+        _enemyGroup.LevelPassed -= OnLevelPassed;
     }
 
     private void OnLevelPassed()

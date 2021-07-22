@@ -6,25 +6,21 @@ using UnityEngine.Events;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _speed;
+
     private float _radiusMovement = 4;
     private Vector3 _targetPosition;
 
+    public event UnityAction<Enemy> Die;
+
     private void Start()
     {
-        _targetPosition = Random.insideUnitCircle * _radiusMovement;
+        _targetPosition = transform.position;
     }
 
     private void FixedUpdate()
     {
-        MoveLogic();
-    }
-
-    private void MoveLogic()
-    {
         if (transform.position == _targetPosition)
-        {
             _targetPosition = Random.insideUnitCircle * _radiusMovement;
-        }
 
         transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _speed * Time.fixedDeltaTime);
     }
@@ -33,7 +29,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.TryGetComponent(out Player player))
         {
-            player.AddScorePoint();
+            Die?.Invoke(this);
             gameObject.SetActive(false);
         }
     }
